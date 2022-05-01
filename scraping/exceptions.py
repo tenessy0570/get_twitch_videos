@@ -1,0 +1,2 @@
+class WrongVideoTypeException(Exception):
+    pass
