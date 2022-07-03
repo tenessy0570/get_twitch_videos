@@ -144,7 +144,7 @@ class VideoScraper:
 
         :param username: twitch username whose videos you want to scrape
         :param videos_type: type of video, like 'clips' or 'highlights'
-        :param limit: returned videos count will not be more than passed limit number
+        :param limit: if passed, returned videos count will not be more than this number
         :return: a list, each object is a dictionary with info about specific video
         """
         return await self._scrape_videos(

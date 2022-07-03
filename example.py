@@ -4,18 +4,18 @@ import pprint
 from twitch_scraping import scraping
 
 
-async def main():
+async def example():
     scraper = scraping.VideoScraper()
-    video_links = await scraper.scrape_videos(
+    video_objects = await scraper.scrape_videos(
         username='tenessy_fjxcsd',
         videos_type='clips',
-        limit=1
+        limit=10  # You can pass None
     )
 
-    pprint.pprint(video_links)
-    print(len(video_links))
+    pprint.pprint(video_objects)
+    print(len(video_objects))
 
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    loop.run_until_complete(example())
