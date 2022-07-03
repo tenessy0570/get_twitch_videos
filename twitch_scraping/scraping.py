@@ -6,12 +6,7 @@ from pyppeteer.page import Page
 
 from . import exceptions, utils
 from .constants import allowed_video_types
-
-created_at = str
-views_count = str
-title = str
-duration = str
-url = str
+from .typing import list_of_video_objects
 
 
 class TwitchHtmlParser:
@@ -22,9 +17,9 @@ class TwitchHtmlParser:
     def __init__(self):
         self._base_url = "https://www.twitch.tv"
         self._method_for = {"clips": self._parse_twitch_clips}
-        self._parsed_videos = list()
+        self._parsed_videos: list_of_video_objects = list()
 
-    def get_parsed_videos(self):
+    def get_parsed_videos(self) -> list_of_video_objects:
         return self._parsed_videos
 
     def parse_twitch_html(self, html: str, videos_type: str) -> None:
@@ -137,18 +132,7 @@ class VideoScraper:
         self._video_links = dict()
         self._html_scraper = TwitchHtmlScraper()
 
-    async def scrape_videos(
-            self,
-            username: str,
-            videos_type: str,
-            limit: int = None
-    ) -> list[dict[
-              created_at: str,
-              views_count: str,
-              title: str,
-              duration: str,
-              url: str
-              ]]:
+    async def scrape_videos(self, username: str, videos_type: str, limit: int = None) -> list_of_video_objects:
         """Scrapes videos from twitch.tv user channel depending on type of videos you want to get.
 
 
@@ -163,7 +147,7 @@ class VideoScraper:
             limit
         )
 
-    async def _scrape_videos(self, username: str, videos_type: str, limit: int = None) -> list[dict]:
+    async def _scrape_videos(self, username: str, videos_type: str, limit: int = None) -> list_of_video_objects:
         await self._html_scraper.scrape_html(username, videos_type, limit)
         video_objects_list = self._html_scraper.html_parser.get_parsed_videos()
 
