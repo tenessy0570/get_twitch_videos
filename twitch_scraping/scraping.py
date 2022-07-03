@@ -35,14 +35,20 @@ class TwitchHtmlParser:
         for article in container:
             video = dict()
 
-            element_a = article.find_all("a")[0]
+            el_a = article.find_all('a')
 
-            clip_title = element_a.text.strip()
-            clip_link = self._base_url + element_a['href']
+            is_untitled = len(el_a) != 4
+            element_a = el_a[1] if is_untitled else el_a[0]
 
             video_info_div = article.find_all('div', class_="ScWrapper-sc-uo2e2v-0 IbFZu tw-hover-accent-effect")[0]
             c = video_info_div.find_all("div", class_='Layout-sc-nxg1ff-0 fjGGXR')[0].find_all('div')
 
+            if is_untitled:
+                clip_link = self._base_url + video_info_div.find_all("a")[0]['href']
+            else:
+                clip_link = self._base_url + element_a['href']
+
+            clip_title = "untitled" if is_untitled else element_a.text.strip()
             clip_duration = c[2].text
             clip_views = c[4].text.split(" ")[0]
             clip_created_at = c[6].text
