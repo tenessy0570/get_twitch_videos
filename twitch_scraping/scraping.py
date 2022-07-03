@@ -37,10 +37,10 @@ class TwitchHtmlParser:
 
             el_a = article.find_all('a')
 
-            is_untitled = len(el_a) != 4
+            is_untitled = len(el_a) < 4
             element_a = el_a[1] if is_untitled else el_a[0]
 
-            video_info_div = article.find_all('div', class_="ScWrapper-sc-uo2e2v-0 IbFZu tw-hover-accent-effect")[0]
+            video_info_div = article.find_all('div', class_="ScWrapper-sc-uo2e2v-0")[0]
             c = video_info_div.find_all("div", class_='Layout-sc-nxg1ff-0 fjGGXR')[0].find_all('div')
 
             if is_untitled:
