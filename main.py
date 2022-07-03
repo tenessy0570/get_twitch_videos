@@ -7,11 +7,9 @@ from twitch_scraping import scraping
 async def main():
     scraper = scraping.VideoScraper()
     video_links = await scraper.scrape_videos(
-        username='redshell',
+        username='tenessy_fjxcsd',
         videos_type='clips',
-        sleep_after_opening_page=3,
-        times_to_scroll_down=4,
-        sleep_after_scroll=2
+        limit=1
     )
 
     pprint.pprint(video_links)
